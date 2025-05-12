@@ -1,5 +1,7 @@
 "use client"
+import { BackgroundLines } from "../components/ui/background-lines";
 import React, { useState } from "react";
+import { Plus, Trash2 } from "lucide-react";
 
 interface MainTask {
   todo: string;
@@ -27,10 +29,10 @@ export default function Home() {
   if(mainTask.length>0){renderTask=mainTask.map((t,i)=>{
            return(
             <li key={i} >
-              <div className="flex mb-4 justify-between items-center" >
-              <h2 className="text-3xl">{t.todo}</h2>
-              <h3 className="text-2xl">{t.desc}</h3>
-              <button onClick={()=>deleteHandler(i)} className="bg-red-700 p-1 rounded text-white text-md font-bold">Delete</button>
+              <div className="flex mb-4  justify-between items-center" >
+              <h2 className="text-3xl text-white ">{t.todo}</h2>
+              <h3 className="text-2xl text-white">{t.desc}</h3>
+              <button onClick={()=>deleteHandler(i)} className="bg-red-700 p-1 rounded text-white text-md font-bold"><Trash2 className="bg-red-600"/></button>
             </div>
             
             </li>
@@ -39,41 +41,47 @@ export default function Home() {
   
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="w-full flex justify-center p-6 flex-col items-center ">
-        <h1 className="text-5xl text-black font-semibold">TO DO List</h1>
-        <h3 className="text-3xl text-black">Just do it</h3>
-      </div>
+  <BackgroundLines className="flex flex-col items-center w-full min-h-screen px-4 space-y-6  dark:bg-black ">
 
-      <form onSubmit={submitHandler} className="w-full flex justify-center items-center gap-2  bg-amber-300">
-        <input
-          value={todo}
-          placeholder="Enter the task.."
-          type="text"
-          className="border-zinc-900 rounded-xl border-2 px-4 py-1  text-xl"
-          onChange={(e)=>{
-            setTodo(e.target.value)
-          }}
-        />
-        <input
-        onChange={(e)=>{
-            setDesc(e.target.value)
-          }}
-          value={desc}
-          placeholder="Description.."
-          type="text"
-          className="border-zinc-900 rounded-xl border-2 px-4 py-1  text-xl"
-        />
-        <button className="px-3 rounded-2xl py-2 cursor-pointer bg-black text-amber-50">
-          Add+
-        </button>
-      </form>
-      <div className="bg-red-300 w-5xl">
-        <ul>
-          {renderTask}
-        </ul>
+  <div className="w-full flex justify-center items-center flex-col text-center p-4">
+    <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold text-black dark:text-white border-white dark:border-black bg-transparent backdrop-blur-md">
+      TO DO List
+    </h1>
+    <h3 className="text-xl sm:text-2xl md:text-4xl text-black dark:text-white">
+      Just do it!
+    </h3>
+  </div>
 
-      </div>
-    </div>
+  <form
+    onSubmit={submitHandler}
+    className="z-10 flex flex-col sm:flex-row justify-center items-center gap-3 w-full max-w-2xl"
+  >
+    <input
+      value={todo}
+      onChange={(e) => setTodo(e.target.value)}
+      placeholder="Enter the task.."
+      type="text"
+      className="w-full sm:w-auto z-10 border-2 border-zinc-900 text-white placeholder:text-white rounded-xl px-4 py-2 text-base sm:text-lg hover:scale-105"
+    />
+    <input
+      value={desc}
+      onChange={(e) => setDesc(e.target.value)}
+      placeholder="Description.."
+      type="text"
+      className="w-full sm:w-auto z-10 border-2 border-zinc-900 text-white placeholder:text-white rounded-xl px-4 py-2 text-base sm:text-lg hover:scale-105"
+    />
+    <button
+      className="w-full sm:w-auto z-10 bg-green-600 hover:bg-green-700 text-white rounded-2xl px-4 py-2 text-base sm:text-lg hover:scale-105 transition-all"
+    >
+      Add+
+    </button>
+  </form>
+
+  <div className="z-10 w-full max-w-2xl border-2 border-white rounded-2xl p-6 text-white mt-4 overflow-x-auto">
+    <ul>{renderTask}</ul>
+  </div>
+
+</BackgroundLines>
+
   );
 }
